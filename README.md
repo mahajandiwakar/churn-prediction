@@ -146,15 +146,6 @@ The forward label is `did the account churn in [T, T + 30 days)?`
 
 ---
 
-## Modelling approach
-
-### Why rolling walk-forward CV?
-
-A single train/test split produces one number that depends on whether the test
-months were easy or hard.  The rolling distribution — 8 folds expanding from
-April 2024 through November 2024 — shows the expected performance envelope
-across the full range of months the model will face in production.
-
 ### Model choice
 
 | Model | Rationale |
@@ -172,10 +163,6 @@ across the full range of months the model will face in production.
 | Random Forest | ~0.61 | ~0.19 |
 | Gradient Boosting | ~0.59 | ~0.18 |
 | Ensemble | ~0.615** | ~0.196** | 
-
-> Exact numbers vary slightly with each run due to permutation importance randomness. The ensemble consistently leads on PR-AUC.
-
-**Class imbalance**: 6.8% churn rate (13.7:1 ratio). `class_weight='balanced'` is applied to LR and RF; `sample_weight` to GBM.
 
 ---
 
