@@ -101,22 +101,6 @@ The output CSV contains all columns from the input plus two appended columns:
 
 ---
 
-## The six pipeline parts
-
-| Part | Module | What it does |
-|------|--------|-------------|
-| 1 | `data_loader` | Load tables, parse dates, print null audit |
-| 2 | `data_loader` | Internal consistency / leakage checks |
-| 3 | `eda` |  EDA plots and print summaries |
-| 4 | `features` | Build monthly feature snapshots |
-| 5 | `models` | Rolling walk-forward CV + final model training; saves `.pkl` and `metrics.json` |
-| 6 | `models` | Diagnostic + importance |
-
-
-
-
----
-
 ## Data schema (five tables)
 
 | Table | Grain | Key columns |
@@ -147,6 +131,18 @@ The forward label is `did the account churn in [T, T + 30 days)?`
 | Subscription | 4 | `recent_downgrade`, `raw error counts` |
 | Historical | 1 | `n_prior_churns`  |
 | Static | 3 | `industry_enc`, `referral_source_enc`, `plan_tier_enc` |
+
+---
+## The six pipeline parts
+
+| Part | Module | What it does |
+|------|--------|-------------|
+| 1 | `data_loader` | Load tables, parse dates, print null audit |
+| 2 | `data_loader` | Internal consistency / leakage checks |
+| 3 | `eda` |  EDA plots and print summaries |
+| 4 | `features` | Build monthly feature snapshots |
+| 5 | `models` | Rolling walk-forward CV + final model training; saves `.pkl` and `metrics.json` |
+| 6 | `models` | Diagnostic + importance |
 
 ---
 
