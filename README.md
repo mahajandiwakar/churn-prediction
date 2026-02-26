@@ -40,18 +40,31 @@ python main.py --parts 4 5 --output-dir my_models/
 
 ---
 
-## The six pipeline parts
+## `main.py` — CLI reference
 
-| Part | Module | What it does |
-|------|--------|-------------|
-| 1 | `data_loader` | Load tables, parse dates, print null audit |
-| 2 | `data_loader` | Internal consistency / leakage checks |
-| 3 | `eda` |  EDA plots and print summaries |
-| 4 | `features` | Build monthly feature snapshots |
-| 5 | `models` | Rolling walk-forward CV + final model training; saves `.pkl` and `metrics.json` |
-| 6 | `models` | Diagnostic + importance |
+```
+python main.py [--parts N …] [--data-dir PATH] [--output-dir PATH]
+```
+
+| Argument | Default | Description |
+|----------|---------|-------------|
+| `--parts N …` | interactive prompt | Space-separated list of parts to run (1–6). Omit to be asked interactively. |
+| `--data-dir PATH` | `data` | Folder containing the five `ravenstack_*.csv` files. |
+| `--output-dir PATH` | `outputs` | Directory where `.pkl` model files and `metrics.json` are written after Part 5. |
+
+**Examples**
+
+```bash
+# Run everything interactively
+python main.py
+
+# Feature engineering + modelling only (saves models automatically)
+python main.py --parts 4 5
+
+```
 
 ---
+
 
 ## `predict.py` — scoring CLI
 
@@ -88,28 +101,19 @@ The output CSV contains all columns from the input plus two appended columns:
 
 ---
 
-## `main.py` — CLI reference
+## The six pipeline parts
 
-```
-python main.py [--parts N …] [--data-dir PATH] [--output-dir PATH]
-```
+| Part | Module | What it does |
+|------|--------|-------------|
+| 1 | `data_loader` | Load tables, parse dates, print null audit |
+| 2 | `data_loader` | Internal consistency / leakage checks |
+| 3 | `eda` |  EDA plots and print summaries |
+| 4 | `features` | Build monthly feature snapshots |
+| 5 | `models` | Rolling walk-forward CV + final model training; saves `.pkl` and `metrics.json` |
+| 6 | `models` | Diagnostic + importance |
 
-| Argument | Default | Description |
-|----------|---------|-------------|
-| `--parts N …` | interactive prompt | Space-separated list of parts to run (1–6). Omit to be asked interactively. |
-| `--data-dir PATH` | `data` | Folder containing the five `ravenstack_*.csv` files. |
-| `--output-dir PATH` | `outputs` | Directory where `.pkl` model files and `metrics.json` are written after Part 5. |
 
-**Examples**
 
-```bash
-# Run everything interactively
-python main.py
-
-# Feature engineering + modelling only (saves models automatically)
-python main.py --parts 4 5
-
-```
 
 ---
 
